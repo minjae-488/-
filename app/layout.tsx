@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   description: "젊은 인재가 우리나라의 미래다. 신주장학재단은 학생들의 꿈과 희망을 응원합니다.",
 };
 
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,10 +25,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${notoSansKR.variable} antialiased`}
-        style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
+        className={`${notoSansKR.variable} antialiased min-h-screen flex flex-col font-sans`}
       >
-        {children}
+        <Header />
+        <main className="flex-grow pt-16">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

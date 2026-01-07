@@ -1,22 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MessageSquare, ChevronRight, ArrowRightCircle, ArrowUp } from 'lucide-react';
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
-
-  // Scroll handler for header styling
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const slides = [
     {
@@ -30,49 +20,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900">
 
-      {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-sm border-b border-gray-100 ${scrolled ? 'py-2' : 'py-4'}`}>
-        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between">
-          {/* Logo Area */}
-          <Link href="/" className="flex items-center gap-3 group">
-            {/* CSS implementation of the logo icon based on image */}
-            <div className="grid grid-cols-2 gap-0.5 w-10 h-10">
-              <div className="bg-[#D69046] w-full h-full"></div> {/* Orange Top-Left */}
-              <div className="bg-[#A0A0A0] w-full h-full"></div> {/* Grey Top-Right */}
-              <div className="bg-[#4E6C7C] w-full h-full"></div> {/* Dark Blue/Grey Bottom-Left */}
-              <div className="bg-[#66A495] w-full h-full"></div> {/* Green Bottom-Right */}
-            </div>
-            <div className="flex flex-col justify-center">
-              <div className="flex items-end gap-1 leading-none">
-                <span className="text-[10px] text-gray-500 font-medium mb-1 tracking-tighter">재단<br />법인</span>
-                <span className="text-2xl font-bold text-gray-800 tracking-tight">신주장학재단</span>
-              </div>
-              <span className="text-[9px] text-gray-400 uppercase tracking-wider mt-0.5">The Shin Joo Scholarship Foundation</span>
-            </div>
-          </Link>
-
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-10">
-            {['재단소개', '장학사업', '알림마당', '후원안내'].map((item) => (
-              <Link
-                key={item}
-                href={`/${item === '장학사업' ? 'scholarship' : '#'}`}
-                className="text-gray-900 font-bold hover:text-[#D69046] transition-colors text-[17px]"
-              >
-                {item}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Mobile Menu Button (Hidden on Desktop) */}
-          <button className="md:hidden p-2">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-          </button>
-        </div>
-      </header>
-
       {/* Hero Section */}
-      <section className="relative h-[560px] mt-[72px] bg-gray-800 overflow-hidden group">
+      <section className="relative h-[560px] bg-gray-800 overflow-hidden group">
         {/* Background Image Placeholder */}
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[2000ms] ease-out group-hover:scale-105"
           style={{

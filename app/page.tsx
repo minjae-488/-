@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -58,10 +59,10 @@ export default function Home() {
               재단소개
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full"></span>
             </a>
-            <a href="#scholarship" className="text-gray-700 hover:text-blue-600 font-medium transition-colors relative group">
+            <Link href="/scholarship" className="text-gray-700 hover:text-blue-600 font-medium transition-colors relative group">
               장학사업
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full"></span>
-            </a>
+            </Link>
             <a href="#notice" className="text-gray-700 hover:text-blue-600 font-medium transition-colors relative group">
               알림마당
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full"></span>
@@ -92,7 +93,7 @@ export default function Home() {
           <div className="md:hidden bg-white border-t border-gray-100 shadow-lg animate-fade-in">
             <nav className="flex flex-col px-6 py-4 space-y-3">
               <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors" onClick={() => setMobileMenuOpen(false)}>재단소개</a>
-              <a href="#scholarship" className="text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors" onClick={() => setMobileMenuOpen(false)}>장학사업</a>
+              <Link href="/scholarship" className="text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors" onClick={() => setMobileMenuOpen(false)}>장학사업</Link>
               <a href="#notice" className="text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors" onClick={() => setMobileMenuOpen(false)}>알림마당</a>
               <a href="#support" className="text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors" onClick={() => setMobileMenuOpen(false)}>후원안내</a>
             </nav>
@@ -159,16 +160,19 @@ export default function Home() {
           {/* Middle Column - Two Teal Boxes */}
           <div className="flex flex-col gap-6">
             {/* Scholarship Status Box */}
-            <div className="bg-gradient-to-br from-[#6BB8C0] to-[#5FA8B0] text-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 flex items-center justify-between group cursor-pointer">
-              <div>
-                <h3 className="text-xl font-bold mb-2">장학금 지급현황</h3>
-                <p className="text-sm opacity-90">119명 / 2억 3,800만원</p>
-                <p className="text-xs opacity-75 mt-1">(총 누적)</p>
+            {/* Scholarship Status Box */}
+            <Link href="/scholarship" className="block">
+              <div className="bg-gradient-to-br from-[#6BB8C0] to-[#5FA8B0] text-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 flex items-center justify-between group cursor-pointer h-full">
+                <div>
+                  <h3 className="text-xl font-bold mb-2">장학금 지급현황</h3>
+                  <p className="text-sm opacity-90">119명 / 2억 3,800만원</p>
+                  <p className="text-xs opacity-75 mt-1">(총 누적)</p>
+                </div>
+                <svg className="w-8 h-8 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
               </div>
-              <svg className="w-8 h-8 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
-            </div>
+            </Link>
 
             {/* Chairman Message Box */}
             <div className="bg-gradient-to-br from-[#4A8088] to-[#386F78] text-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 flex items-center justify-between group cursor-pointer">
@@ -361,8 +365,8 @@ export default function Home() {
                   <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer group">
                     <div className="flex items-center gap-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${notice.badge === "진행중" ? "bg-green-100 text-green-700" :
-                          notice.badge === "완료" ? "bg-blue-100 text-blue-700" :
-                            "bg-gray-100 text-gray-700"
+                        notice.badge === "완료" ? "bg-blue-100 text-blue-700" :
+                          "bg-gray-100 text-gray-700"
                         }`}>
                         {notice.badge}
                       </span>

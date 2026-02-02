@@ -14,8 +14,10 @@ export default function Header() {
             path: '/about', // Links to landing page
             submenu: [
                 { title: '이사장 인사말', path: '/about/greetings' },
+                { title: '이사진', path: '/about/directors' },
                 { title: '설립취지', path: '/about/purpose' },
                 { title: '연혁/조직도', path: '/about/history' },
+                { title: '찾아오시는 길', path: '/about/directions' },
             ],
         },
         {

@@ -3,7 +3,7 @@
 import PageTitle from '@/components/PageTitle';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, Clock, HeartHandshake } from 'lucide-react';
+import { ArrowRight, BookOpen, Clock, HeartHandshake, Users, MapPin } from 'lucide-react';
 
 export default function AboutPage() {
     const cards = [
@@ -13,6 +13,13 @@ export default function AboutPage() {
             icon: HeartHandshake,
             href: '/about/greetings',
             color: 'bg-orange-50 text-orange-600',
+        },
+        {
+            title: '이사진',
+            description: '신주장학재단을 이끌어가는 전문가들을 소개합니다.',
+            icon: Users,
+            href: '/about/directors',
+            color: 'bg-purple-50 text-purple-600',
         },
         {
             title: '설립취지',
@@ -28,6 +35,13 @@ export default function AboutPage() {
             href: '/about/history',
             color: 'bg-indigo-50 text-indigo-600',
         },
+        {
+            title: '찾아오시는 길',
+            description: '신주장학재단 오시는 방법과 위치를 안내합니다.',
+            icon: MapPin,
+            href: '/about/directions',
+            color: 'bg-green-50 text-green-600',
+        },
     ];
 
     return (
@@ -39,7 +53,7 @@ export default function AboutPage() {
             />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {cards.map((card, index) => (
                         <Link key={card.title} href={card.href}>
                             <motion.div

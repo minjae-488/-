@@ -23,7 +23,10 @@ export default function Header() {
         {
             title: '장학사업',
             path: '/scholarship',
-            submenu: [], // No sub-pages required yet per text-version decision
+            submenu: [
+                { title: '장학금 지급 현황', path: '/scholarship/report' },
+                { title: '장학생 명단', path: '/scholarship/list' },
+            ],
         },
         {
             title: '알림마당',

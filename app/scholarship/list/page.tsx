@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, GraduationCap } from 'lucide-react';
+import { Search, GraduationCap, Filter } from 'lucide-react';
 
 export default function ScholarListPage() {
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedYear, setSelectedYear] = useState('all');
 
     // 실제 데이터 기반 (2022-2024 총 119명)
     const scholarsByYear = [
@@ -47,6 +48,9 @@ export default function ScholarListPage() {
         }
     ];
 
+    // 존재하는 모든 연도 추출
+    const availableYears = scholarsByYear.map(d => d.year);
+
     return (
         <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
             {/* Hero Section */}
@@ -63,74 +67,109 @@ export default function ScholarListPage() {
             </section>
 
             <div className="container mx-auto px-4 py-16 max-w-6xl">
-                {/* 검색창 */}
+                {/* 검색 및 필터 */}
                 <div className="bg-white rounded-xl shadow-lg p-6 mb-12">
-                    <div className="relative max-w-xl mx-auto">
-                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6" />
-                        <input
-                            type="text"
-                            placeholder="장학생 이름 검색"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-full focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all text-lg outline-none"
-                        />
+                    <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
+                        {/* 검색창 */}
+                        <div className="relative flex-grow">
+                            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                            <input
+                                type="text"
+                                placeholder="장학생 이름 검색"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all outline-none"
+                            />
+                        </div>
+
+                        {/* 연도 필터 */}
+                        <div className="relative min-w-[140px]">
+                            <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                            <select
+                                value={selectedYear}
+                                onChange={(e) => setSelectedYear(e.target.value)}
+                                className="w-full pl-11 pr-8 py-3 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all outline-none appearance-none bg-white cursor-pointer"
+                            >
+                                <option value="all">전체 연도</option>
+                                {availableYears.map(year => (
+                                    <option key={year} value={year}>{year}년</option>
+                                ))}
+                            </select>
+                            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500 text-xs">
+                                ▼
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 {/* 연도별 장학생 명단 */}
-                {scholarsByYear.map((yearData) => {
-                    // 검색어 필터링
-                    const filteredScholars = yearData.scholars.filter(name =>
-                        name.includes(searchTerm)
-                    );
+                {scholarsByYear
+                    .filter(item => selectedYear === 'all' || item.year.toString() === selectedYear)
+                    .map((yearData) => {
+                        // 검색어 필터링
+                        const filteredScholars = yearData.scholars.filter(name =>
+                            name.includes(searchTerm)
+                        );
 
-                    if (filteredScholars.length === 0 && searchTerm !== '') return null; // Only hide if search term is active and no results
+                        // 검색어가 있는데 결과가 없으면 보여주지 않음 (단, 해당 연도가 선택된 상태라면 "검색 결과 없음"을 보여주는게 나을 수도 있지만, 
+                        // 기존 로직처럼 여기서는 null을 리턴하고 아래에서 전체적으로 결과 없음을 체크하는게 깔끔함)
+                        if (filteredScholars.length === 0 && searchTerm !== '') return null;
 
-                    return (
-                        <div key={yearData.year} className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-                            {/* 연도 헤더 */}
-                            <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6">
-                                <div className="flex items-center justify-between">
-                                    <h2 className="text-3xl font-bold">{yearData.year}년</h2>
-                                    <div className="text-right">
-                                        <div className="text-2xl font-bold">
-                                            {searchTerm ? `${filteredScholars.length}명 검색됨` : `${yearData.total}명`}
-                                        </div>
-                                        {!searchTerm && (
-                                            <div className="text-blue-100 text-sm">
-                                                {(yearData.amount / 10000).toLocaleString()}만원
+                        return (
+                            <div key={yearData.year} className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                                {/* 연도 헤더 */}
+                                <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6">
+                                    <div className="flex items-center justify-between">
+                                        <h2 className="text-3xl font-bold">{yearData.year}년</h2>
+                                        <div className="text-right">
+                                            <div className="text-2xl font-bold">
+                                                {searchTerm ? `${filteredScholars.length}명 검색됨` : `${yearData.total}명`}
                                             </div>
-                                        )}
+                                            {!searchTerm && (
+                                                <div className="text-blue-100 text-sm">
+                                                    {(yearData.amount / 10000).toLocaleString()}만원
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 장학생 명단 */}
+                                <div className="p-8">
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                                        {filteredScholars.map((name, index) => (
+                                            <div
+                                                key={`${yearData.year}-${index}`}
+                                                className="bg-gray-50 rounded-lg p-4 text-center hover:bg-blue-50 transition-colors"
+                                            >
+                                                <div className="text-lg font-semibold text-gray-800">{name}</div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
-
-                            {/* 장학생 명단 */}
-                            <div className="p-8">
-                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                                    {filteredScholars.map((name, index) => (
-                                        <div
-                                            key={`${yearData.year}-${index}`}
-                                            className="bg-gray-50 rounded-lg p-4 text-center hover:bg-blue-50 transition-colors"
-                                        >
-                                            <div className="text-lg font-semibold text-gray-800">{name}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
 
                 {/* 검색 결과 없음 표시 */}
-                {searchTerm && scholarsByYear.every(year => year.scholars.filter(s => s.includes(searchTerm)).length === 0) && (
-                    <div className="text-center py-20 bg-gray-50 rounded-xl">
-                        <p className="text-xl text-gray-500">검색 결과가 없습니다.</p>
-                    </div>
-                )}
+                {(() => {
+                    const visibleYears = scholarsByYear.filter(item => selectedYear === 'all' || item.year.toString() === selectedYear);
+                    const hasResults = visibleYears.some(year => year.scholars.some(s => s.includes(searchTerm)));
+
+                    if (!hasResults && (searchTerm || selectedYear !== 'all')) {
+                        return (
+                            <div className="text-center py-20 bg-gray-50 rounded-xl">
+                                <Search className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                                <p className="text-xl text-gray-500">조건에 맞는 결과가 없습니다.</p>
+                                <p className="text-gray-400 mt-2">검색어 또는 필터를 변경해보세요.</p>
+                            </div>
+                        );
+                    }
+                    return null;
+                })()}
 
                 {/* 안내사항 */}
-                <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg">
+                <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg mt-12">
                     <h4 className="font-bold text-blue-800 mb-2 flex items-center">
                         <span className="mr-2">ℹ️</span>
                         개인정보 보호 안내

@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, Clock, Bus, Subway, Car } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Bus, Train, Car } from 'lucide-react';
 
 export default function DirectionsPage() {
   return (
@@ -85,7 +85,7 @@ export default function DirectionsPage() {
           <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6">
             <h3 className="text-2xl font-bold">오시는 길</h3>
           </div>
-          
+
           {/* 카카오맵 임베드 */}
           <div className="w-full h-96 bg-gray-200 relative">
             <iframe
@@ -93,7 +93,6 @@ export default function DirectionsPage() {
               width="100%"
               height="100%"
               style={{ border: 0 }}
-              allowFullScreen
               loading="lazy"
               title="신주장학재단 위치"
             ></iframe>
@@ -107,7 +106,7 @@ export default function DirectionsPage() {
           <div className="bg-white rounded-xl shadow-lg p-6">
             <div className="flex items-center mb-4 pb-4 border-b-2 border-blue-100">
               <div className="bg-blue-100 rounded-full p-3 mr-4">
-                <Subway className="w-6 h-6 text-blue-600" />
+                <Train className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-800">지하철</h3>
             </div>

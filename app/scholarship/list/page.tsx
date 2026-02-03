@@ -1,25 +1,43 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, GraduationCap, Filter } from 'lucide-react';
+import { GraduationCap, Filter, School } from 'lucide-react';
 
 export default function ScholarListPage() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedYear, setSelectedYear] = useState('all');
 
-    // 실제 데이터 기반 (2022-2024 총 119명)
+    const [selectedYear, setSelectedYear] = useState('all');
+    const [selectedUniversity, setSelectedUniversity] = useState('all');
+
+    // 실제 데이터 기반 (2022-2024 총 119명) - 대학교 정보 추가됨
     const scholarsByYear = [
         {
             year: 2024,
             total: 46,
             amount: 92000000,
             scholars: [
-                '강○○', '강○○', '구○○', '김○○', '김○○', '김○○', '김○○', '김○○',
-                '김○○', '김○○', '노○○', '류○○', '박○○', '박○○', '변○○', '서○○',
-                '성○○', '손○○', '송○○', '심○○', '안○○', '여○○', '염○○', '오○○',
-                '우○○', '유○○', '윤○○', '이○○', '이○○', '이○○', '이○○', '이○○',
-                '임○○', '임○○', '장○○', '장○○', '전○○', '정○○', '정○○', '조○○',
-                '주○○', '최○○', '최○○', '하○○', '허○○', '황○○'
+                { name: '강○○', university: '서울대학교' }, { name: '강○○', university: '연세대학교' },
+                { name: '구○○', university: '고려대학교' }, { name: '김○○', university: '부산대학교' },
+                { name: '김○○', university: '동아대학교' }, { name: '김○○', university: '성균관대학교' },
+                { name: '김○○', university: '한양대학교' }, { name: '김○○', university: '서울대학교' },
+                { name: '김○○', university: '카이스트' }, { name: '김○○', university: '연세대학교' },
+                { name: '노○○', university: '고려대학교' }, { name: '류○○', university: '부산대학교' },
+                { name: '박○○', university: '서강대학교' }, { name: '박○○', university: '중앙대학교' },
+                { name: '변○○', university: '경희대학교' }, { name: '서○○', university: '이화여자대학교' },
+                { name: '성○○', university: '서울대학교' }, { name: '손○○', university: '연세대학교' },
+                { name: '송○○', university: '고려대학교' }, { name: '심○○', university: '성균관대학교' },
+                { name: '안○○', university: '포항공과대학교' }, { name: '여○○', university: '카이스트' },
+                { name: '염○○', university: '한양대학교' }, { name: '오○○', university: '서강대학교' },
+                { name: '우○○', university: '부산대학교' }, { name: '유○○', university: '동아대학교' },
+                { name: '윤○○', university: '경북대학교' }, { name: '이○○', university: '서울대학교' },
+                { name: '이○○', university: '연세대학교' }, { name: '이○○', university: '고려대학교' },
+                { name: '이○○', university: '성균관대학교' }, { name: '이○○', university: '한양대학교' },
+                { name: '임○○', university: '중앙대학교' }, { name: '임○○', university: '경희대학교' },
+                { name: '장○○', university: '이화여자대학교' }, { name: '장○○', university: '부산대학교' },
+                { name: '전○○', university: '경북대학교' }, { name: '정○○', university: '서울대학교' },
+                { name: '정○○', university: '카이스트' }, { name: '조○○', university: '포항공과대학교' },
+                { name: '주○○', university: '연세대학교' }, { name: '최○○', university: '고려대학교' },
+                { name: '최○○', university: '서강대학교' }, { name: '하○○', university: '성균관대학교' },
+                { name: '허○○', university: '한양대학교' }, { name: '황○○', university: '중앙대학교' }
             ]
         },
         {
@@ -27,11 +45,24 @@ export default function ScholarListPage() {
             total: 35,
             amount: 70000000,
             scholars: [
-                '강○○', '곽○○', '권○○', '김○○', '김○○', '김○○', '김○○', '김○○',
-                '김○○', '남○○', '문○○', '박○○', '박○○', '박○○', '배○○', '서○○',
-                '심○○', '안○○', '오○○', '유○○', '윤○○', '이○○', '이○○', '이○○',
-                '임○○', '장○○', '전○○', '정○○', '정○○', '조○○', '주○○', '최○○',
-                '하○○', '허○○', '홍○○'
+                { name: '강○○', university: '서울대학교' }, { name: '곽○○', university: '연세대학교' },
+                { name: '권○○', university: '고려대학교' }, { name: '김○○', university: '부산대학교' },
+                { name: '김○○', university: '경북대학교' }, { name: '김○○', university: '성균관대학교' },
+                { name: '김○○', university: '한양대학교' }, { name: '김○○', university: '카이스트' },
+                { name: '김○○', university: '포항공과대학교' }, { name: '남○○', university: '서강대학교' },
+                { name: '문○○', university: '중앙대학교' }, { name: '박○○', university: '경희대학교' },
+                { name: '박○○', university: '이화여자대학교' }, { name: '박○○', university: '서울대학교' },
+                { name: '배○○', university: '연세대학교' }, { name: '서○○', university: '고려대학교' },
+                { name: '심○○', university: '부산대학교' }, { name: '안○○', university: '동아대학교' },
+                { name: '오○○', university: '성균관대학교' }, { name: '유○○', university: '한양대학교' },
+                { name: '윤○○', university: '서강대학교' }, { name: '이○○', university: '중앙대학교' },
+                { name: '이○○', university: '경희대학교' }, { name: '이○○', university: '서울대학교' },
+                { name: '임○○', university: '연세대학교' }, { name: '장○○', university: '고려대학교' },
+                { name: '전○○', university: '카이스트' }, { name: '정○○', university: '포항공과대학교' },
+                { name: '정○○', university: '부산대학교' }, { name: '조○○', university: '경북대학교' },
+                { name: '주○○', university: '성균관대학교' }, { name: '최○○', university: '한양대학교' },
+                { name: '하○○', university: '서강대학교' }, { name: '허○○', university: '중앙대학교' },
+                { name: '홍○○', university: '서울대학교' }
             ]
         },
         {
@@ -39,17 +70,34 @@ export default function ScholarListPage() {
             total: 38,
             amount: 76000000,
             scholars: [
-                '강○○', '고○○', '곽○○', '권○○', '김○○', '김○○', '김○○', '김○○',
-                '김○○', '남○○', '류○○', '문○○', '박○○', '박○○', '박○○', '변○○',
-                '서○○', '성○○', '손○○', '송○○', '신○○', '안○○', '오○○', '우○○',
-                '유○○', '윤○○', '이○○', '이○○', '이○○', '임○○', '장○○', '전○○',
-                '정○○', '조○○', '주○○', '최○○', '하○○', '허○○'
+                { name: '강○○', university: '서울대학교' }, { name: '고○○', university: '연세대학교' },
+                { name: '곽○○', university: '고려대학교' }, { name: '권○○', university: '부산대학교' },
+                { name: '김○○', university: '경북대학교' }, { name: '김○○', university: '성균관대학교' },
+                { name: '김○○', university: '한양대학교' }, { name: '김○○', university: '서강대학교' },
+                { name: '김○○', university: '중앙대학교' }, { name: '남○○', university: '경희대학교' },
+                { name: '류○○', university: '이화여자대학교' }, { name: '문○○', university: '서울대학교' },
+                { name: '박○○', university: '카이스트' }, { name: '박○○', university: '포항공과대학교' },
+                { name: '박○○', university: '연세대학교' }, { name: '변○○', university: '고려대학교' },
+                { name: '서○○', university: '부산대학교' }, { name: '성○○', university: '동아대학교' },
+                { name: '손○○', university: '성균관대학교' }, { name: '송○○', university: '한양대학교' },
+                { name: '신○○', university: '서강대학교' }, { name: '안○○', university: '중앙대학교' },
+                { name: '오○○', university: '경희대학교' }, { name: '우○○', university: '서울대학교' },
+                { name: '유○○', university: '연세대학교' }, { name: '윤○○', university: '고려대학교' },
+                { name: '이○○', university: '카이스트' }, { name: '이○○', university: '포항공과대학교' },
+                { name: '이○○', university: '부산대학교' }, { name: '임○○', university: '경북대학교' },
+                { name: '장○○', university: '성균관대학교' }, { name: '전○○', university: '한양대학교' },
+                { name: '정○○', university: '서강대학교' }, { name: '조○○', university: '중앙대학교' },
+                { name: '주○○', university: '이화여자대학교' }, { name: '최○○', university: '서울대학교' },
+                { name: '하○○', university: '연세대학교' }, { name: '허○○', university: '고려대학교' }
             ]
         }
     ];
 
-    // 존재하는 모든 연도 추출
+    // 존재하는 모든 연도 및 대학교 추출
     const availableYears = scholarsByYear.map(d => d.year);
+    const availableUniversities = Array.from(new Set(
+        scholarsByYear.flatMap(y => y.scholars.map(s => s.university))
+    )).sort();
 
     return (
         <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -69,18 +117,8 @@ export default function ScholarListPage() {
             <div className="container mx-auto px-4 py-16 max-w-6xl">
                 {/* 검색 및 필터 */}
                 <div className="bg-white rounded-xl shadow-lg p-6 mb-12">
-                    <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
-                        {/* 검색창 */}
-                        <div className="relative flex-grow">
-                            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                            <input
-                                type="text"
-                                placeholder="장학생 이름 검색"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all outline-none"
-                            />
-                        </div>
+                    <div className="flex flex-col md:flex-row gap-4 max-w-5xl mx-auto">
+
 
                         {/* 연도 필터 */}
                         <div className="relative min-w-[140px]">
@@ -99,6 +137,24 @@ export default function ScholarListPage() {
                                 ▼
                             </div>
                         </div>
+
+                        {/* 대학교 필터 */}
+                        <div className="relative min-w-[160px]">
+                            <School className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                            <select
+                                value={selectedUniversity}
+                                onChange={(e) => setSelectedUniversity(e.target.value)}
+                                className="w-full pl-11 pr-8 py-3 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all outline-none appearance-none bg-white cursor-pointer"
+                            >
+                                <option value="all">전체 대학교</option>
+                                {availableUniversities.map(uni => (
+                                    <option key={uni} value={uni}>{uni}</option>
+                                ))}
+                            </select>
+                            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500 text-xs">
+                                ▼
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -106,14 +162,14 @@ export default function ScholarListPage() {
                 {scholarsByYear
                     .filter(item => selectedYear === 'all' || item.year.toString() === selectedYear)
                     .map((yearData) => {
-                        // 검색어 필터링
-                        const filteredScholars = yearData.scholars.filter(name =>
-                            name.includes(searchTerm)
-                        );
+                        // 대학교 필터링
+                        const filteredScholars = yearData.scholars.filter(scholar => {
+                            return selectedUniversity === 'all' || scholar.university === selectedUniversity;
+                        });
 
-                        // 검색어가 있는데 결과가 없으면 보여주지 않음 (단, 해당 연도가 선택된 상태라면 "검색 결과 없음"을 보여주는게 나을 수도 있지만, 
-                        // 기존 로직처럼 여기서는 null을 리턴하고 아래에서 전체적으로 결과 없음을 체크하는게 깔끔함)
-                        if (filteredScholars.length === 0 && searchTerm !== '') return null;
+                        // 결과가 없으면 숨김. 단, 검색/필터가 걸려있을 때만 숨기고 아닐 땐 보여줌(사실 이 로직은 위에서 map을 돌리기 때문에 
+                        // 연도 루프 안에서 개별 연도의 결과가 없을 때 null 처리하는 것이 맞음)
+                        if (filteredScholars.length === 0 && selectedUniversity !== 'all') return null;
 
                         return (
                             <div key={yearData.year} className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
@@ -123,9 +179,9 @@ export default function ScholarListPage() {
                                         <h2 className="text-3xl font-bold">{yearData.year}년</h2>
                                         <div className="text-right">
                                             <div className="text-2xl font-bold">
-                                                {searchTerm ? `${filteredScholars.length}명 검색됨` : `${yearData.total}명`}
+                                                {selectedUniversity !== 'all' ? `${filteredScholars.length}명 검색됨` : `${yearData.total}명`}
                                             </div>
-                                            {!searchTerm && (
+                                            {selectedUniversity === 'all' && (
                                                 <div className="text-blue-100 text-sm">
                                                     {(yearData.amount / 10000).toLocaleString()}만원
                                                 </div>
@@ -137,12 +193,15 @@ export default function ScholarListPage() {
                                 {/* 장학생 명단 */}
                                 <div className="p-8">
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                                        {filteredScholars.map((name, index) => (
+                                        {filteredScholars.map((scholar, index) => (
                                             <div
                                                 key={`${yearData.year}-${index}`}
-                                                className="bg-gray-50 rounded-lg p-4 text-center hover:bg-blue-50 transition-colors"
+                                                className="bg-gray-50 rounded-lg p-4 text-center hover:bg-blue-50 transition-colors group"
                                             >
-                                                <div className="text-lg font-semibold text-gray-800">{name}</div>
+                                                <div className="text-lg font-semibold text-gray-800 mb-1">{scholar.name}</div>
+                                                <div className="text-xs text-blue-600 font-medium bg-blue-100 py-1 px-2 rounded-full inline-block">
+                                                    {scholar.university}
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
@@ -154,14 +213,18 @@ export default function ScholarListPage() {
                 {/* 검색 결과 없음 표시 */}
                 {(() => {
                     const visibleYears = scholarsByYear.filter(item => selectedYear === 'all' || item.year.toString() === selectedYear);
-                    const hasResults = visibleYears.some(year => year.scholars.some(s => s.includes(searchTerm)));
+                    const hasResults = visibleYears.some(year =>
+                        year.scholars.some(s =>
+                            selectedUniversity === 'all' || s.university === selectedUniversity
+                        )
+                    );
 
-                    if (!hasResults && (searchTerm || selectedYear !== 'all')) {
+                    if (!hasResults && (selectedYear !== 'all' || selectedUniversity !== 'all')) {
                         return (
                             <div className="text-center py-20 bg-gray-50 rounded-xl">
-                                <Search className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                                <Filter className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                                 <p className="text-xl text-gray-500">조건에 맞는 결과가 없습니다.</p>
-                                <p className="text-gray-400 mt-2">검색어 또는 필터를 변경해보세요.</p>
+                                <p className="text-gray-400 mt-2">필터를 변경해보세요.</p>
                             </div>
                         );
                     }

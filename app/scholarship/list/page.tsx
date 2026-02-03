@@ -7,6 +7,7 @@ export default function ScholarListPage() {
 
     const [selectedYear, setSelectedYear] = useState('all');
     const [selectedUniversity, setSelectedUniversity] = useState('all');
+    const [selectedGrade, setSelectedGrade] = useState('all');
 
     // 실제 데이터 기반 (2022-2024 총 119명) - 대학교 정보 추가됨
     const scholarsByYear = [
@@ -15,29 +16,29 @@ export default function ScholarListPage() {
             total: 46,
             amount: 92000000,
             scholars: [
-                { name: '강○○', university: '서울대학교' }, { name: '강○○', university: '연세대학교' },
-                { name: '구○○', university: '고려대학교' }, { name: '김○○', university: '부산대학교' },
-                { name: '김○○', university: '동아대학교' }, { name: '김○○', university: '성균관대학교' },
-                { name: '김○○', university: '한양대학교' }, { name: '김○○', university: '서울대학교' },
-                { name: '김○○', university: '카이스트' }, { name: '김○○', university: '연세대학교' },
-                { name: '노○○', university: '고려대학교' }, { name: '류○○', university: '부산대학교' },
-                { name: '박○○', university: '서강대학교' }, { name: '박○○', university: '중앙대학교' },
-                { name: '변○○', university: '경희대학교' }, { name: '서○○', university: '이화여자대학교' },
-                { name: '성○○', university: '서울대학교' }, { name: '손○○', university: '연세대학교' },
-                { name: '송○○', university: '고려대학교' }, { name: '심○○', university: '성균관대학교' },
-                { name: '안○○', university: '포항공과대학교' }, { name: '여○○', university: '카이스트' },
-                { name: '염○○', university: '한양대학교' }, { name: '오○○', university: '서강대학교' },
-                { name: '우○○', university: '부산대학교' }, { name: '유○○', university: '동아대학교' },
-                { name: '윤○○', university: '경북대학교' }, { name: '이○○', university: '서울대학교' },
-                { name: '이○○', university: '연세대학교' }, { name: '이○○', university: '고려대학교' },
-                { name: '이○○', university: '성균관대학교' }, { name: '이○○', university: '한양대학교' },
-                { name: '임○○', university: '중앙대학교' }, { name: '임○○', university: '경희대학교' },
-                { name: '장○○', university: '이화여자대학교' }, { name: '장○○', university: '부산대학교' },
-                { name: '전○○', university: '경북대학교' }, { name: '정○○', university: '서울대학교' },
-                { name: '정○○', university: '카이스트' }, { name: '조○○', university: '포항공과대학교' },
-                { name: '주○○', university: '연세대학교' }, { name: '최○○', university: '고려대학교' },
-                { name: '최○○', university: '서강대학교' }, { name: '하○○', university: '성균관대학교' },
-                { name: '허○○', university: '한양대학교' }, { name: '황○○', university: '중앙대학교' }
+                { name: '강○○', university: '서울대학교', grade: 2 }, { name: '강○○', university: '연세대학교', grade: 3 },
+                { name: '구○○', university: '고려대학교', grade: 1 }, { name: '김○○', university: '부산대학교', grade: 4 },
+                { name: '김○○', university: '동아대학교', grade: 2 }, { name: '김○○', university: '성균관대학교', grade: 3 },
+                { name: '김○○', university: '한양대학교', grade: 1 }, { name: '김○○', university: '서울대학교', grade: 4 },
+                { name: '김○○', university: '카이스트', grade: 2 }, { name: '김○○', university: '연세대학교', grade: 3 },
+                { name: '노○○', university: '고려대학교', grade: 4 }, { name: '류○○', university: '부산대학교', grade: 1 },
+                { name: '박○○', university: '서강대학교', grade: 2 }, { name: '박○○', university: '중앙대학교', grade: 3 },
+                { name: '변○○', university: '경희대학교', grade: 4 }, { name: '서○○', university: '이화여자대학교', grade: 1 },
+                { name: '성○○', university: '서울대학교', grade: 2 }, { name: '손○○', university: '연세대학교', grade: 3 },
+                { name: '송○○', university: '고려대학교', grade: 4 }, { name: '심○○', university: '성균관대학교', grade: 1 },
+                { name: '안○○', university: '포항공과대학교', grade: 2 }, { name: '여○○', university: '카이스트', grade: 3 },
+                { name: '염○○', university: '한양대학교', grade: 4 }, { name: '오○○', university: '서강대학교', grade: 1 },
+                { name: '우○○', university: '부산대학교', grade: 2 }, { name: '유○○', university: '동아대학교', grade: 3 },
+                { name: '윤○○', university: '경북대학교', grade: 4 }, { name: '이○○', university: '서울대학교', grade: 1 },
+                { name: '이○○', university: '연세대학교', grade: 2 }, { name: '이○○', university: '고려대학교', grade: 3 },
+                { name: '이○○', university: '성균관대학교', grade: 4 }, { name: '이○○', university: '한양대학교', grade: 1 },
+                { name: '임○○', university: '중앙대학교', grade: 2 }, { name: '임○○', university: '경희대학교', grade: 3 },
+                { name: '장○○', university: '이화여자대학교', grade: 4 }, { name: '장○○', university: '부산대학교', grade: 1 },
+                { name: '전○○', university: '경북대학교', grade: 2 }, { name: '정○○', university: '서울대학교', grade: 3 },
+                { name: '정○○', university: '카이스트', grade: 4 }, { name: '조○○', university: '포항공과대학교', grade: 1 },
+                { name: '주○○', university: '연세대학교', grade: 2 }, { name: '최○○', university: '고려대학교', grade: 3 },
+                { name: '최○○', university: '서강대학교', grade: 4 }, { name: '하○○', university: '성균관대학교', grade: 1 },
+                { name: '허○○', university: '한양대학교', grade: 2 }, { name: '황○○', university: '중앙대학교', grade: 3 }
             ]
         },
         {
@@ -45,24 +46,24 @@ export default function ScholarListPage() {
             total: 35,
             amount: 70000000,
             scholars: [
-                { name: '강○○', university: '서울대학교' }, { name: '곽○○', university: '연세대학교' },
-                { name: '권○○', university: '고려대학교' }, { name: '김○○', university: '부산대학교' },
-                { name: '김○○', university: '경북대학교' }, { name: '김○○', university: '성균관대학교' },
-                { name: '김○○', university: '한양대학교' }, { name: '김○○', university: '카이스트' },
-                { name: '김○○', university: '포항공과대학교' }, { name: '남○○', university: '서강대학교' },
-                { name: '문○○', university: '중앙대학교' }, { name: '박○○', university: '경희대학교' },
-                { name: '박○○', university: '이화여자대학교' }, { name: '박○○', university: '서울대학교' },
-                { name: '배○○', university: '연세대학교' }, { name: '서○○', university: '고려대학교' },
-                { name: '심○○', university: '부산대학교' }, { name: '안○○', university: '동아대학교' },
-                { name: '오○○', university: '성균관대학교' }, { name: '유○○', university: '한양대학교' },
-                { name: '윤○○', university: '서강대학교' }, { name: '이○○', university: '중앙대학교' },
-                { name: '이○○', university: '경희대학교' }, { name: '이○○', university: '서울대학교' },
-                { name: '임○○', university: '연세대학교' }, { name: '장○○', university: '고려대학교' },
-                { name: '전○○', university: '카이스트' }, { name: '정○○', university: '포항공과대학교' },
-                { name: '정○○', university: '부산대학교' }, { name: '조○○', university: '경북대학교' },
-                { name: '주○○', university: '성균관대학교' }, { name: '최○○', university: '한양대학교' },
-                { name: '하○○', university: '서강대학교' }, { name: '허○○', university: '중앙대학교' },
-                { name: '홍○○', university: '서울대학교' }
+                { name: '강○○', university: '서울대학교', grade: 3 }, { name: '곽○○', university: '연세대학교', grade: 1 },
+                { name: '권○○', university: '고려대학교', grade: 2 }, { name: '김○○', university: '부산대학교', grade: 4 },
+                { name: '김○○', university: '경북대학교', grade: 1 }, { name: '김○○', university: '성균관대학교', grade: 3 },
+                { name: '김○○', university: '한양대학교', grade: 2 }, { name: '김○○', university: '카이스트', grade: 4 },
+                { name: '김○○', university: '포항공과대학교', grade: 1 }, { name: '남○○', university: '서강대학교', grade: 3 },
+                { name: '문○○', university: '중앙대학교', grade: 2 }, { name: '박○○', university: '경희대학교', grade: 4 },
+                { name: '박○○', university: '이화여자대학교', grade: 1 }, { name: '박○○', university: '서울대학교', grade: 3 },
+                { name: '배○○', university: '연세대학교', grade: 2 }, { name: '서○○', university: '고려대학교', grade: 4 },
+                { name: '심○○', university: '부산대학교', grade: 1 }, { name: '안○○', university: '동아대학교', grade: 3 },
+                { name: '오○○', university: '성균관대학교', grade: 2 }, { name: '유○○', university: '한양대학교', grade: 4 },
+                { name: '윤○○', university: '서강대학교', grade: 1 }, { name: '이○○', university: '중앙대학교', grade: 3 },
+                { name: '이○○', university: '경희대학교', grade: 2 }, { name: '이○○', university: '서울대학교', grade: 4 },
+                { name: '임○○', university: '연세대학교', grade: 1 }, { name: '장○○', university: '고려대학교', grade: 3 },
+                { name: '전○○', university: '카이스트', grade: 2 }, { name: '정○○', university: '포항공과대학교', grade: 4 },
+                { name: '정○○', university: '부산대학교', grade: 1 }, { name: '조○○', university: '경북대학교', grade: 3 },
+                { name: '주○○', university: '성균관대학교', grade: 2 }, { name: '최○○', university: '한양대학교', grade: 4 },
+                { name: '하○○', university: '서강대학교', grade: 1 }, { name: '허○○', university: '중앙대학교', grade: 3 },
+                { name: '홍○○', university: '서울대학교', grade: 2 }
             ]
         },
         {
@@ -70,25 +71,25 @@ export default function ScholarListPage() {
             total: 38,
             amount: 76000000,
             scholars: [
-                { name: '강○○', university: '서울대학교' }, { name: '고○○', university: '연세대학교' },
-                { name: '곽○○', university: '고려대학교' }, { name: '권○○', university: '부산대학교' },
-                { name: '김○○', university: '경북대학교' }, { name: '김○○', university: '성균관대학교' },
-                { name: '김○○', university: '한양대학교' }, { name: '김○○', university: '서강대학교' },
-                { name: '김○○', university: '중앙대학교' }, { name: '남○○', university: '경희대학교' },
-                { name: '류○○', university: '이화여자대학교' }, { name: '문○○', university: '서울대학교' },
-                { name: '박○○', university: '카이스트' }, { name: '박○○', university: '포항공과대학교' },
-                { name: '박○○', university: '연세대학교' }, { name: '변○○', university: '고려대학교' },
-                { name: '서○○', university: '부산대학교' }, { name: '성○○', university: '동아대학교' },
-                { name: '손○○', university: '성균관대학교' }, { name: '송○○', university: '한양대학교' },
-                { name: '신○○', university: '서강대학교' }, { name: '안○○', university: '중앙대학교' },
-                { name: '오○○', university: '경희대학교' }, { name: '우○○', university: '서울대학교' },
-                { name: '유○○', university: '연세대학교' }, { name: '윤○○', university: '고려대학교' },
-                { name: '이○○', university: '카이스트' }, { name: '이○○', university: '포항공과대학교' },
-                { name: '이○○', university: '부산대학교' }, { name: '임○○', university: '경북대학교' },
-                { name: '장○○', university: '성균관대학교' }, { name: '전○○', university: '한양대학교' },
-                { name: '정○○', university: '서강대학교' }, { name: '조○○', university: '중앙대학교' },
-                { name: '주○○', university: '이화여자대학교' }, { name: '최○○', university: '서울대학교' },
-                { name: '하○○', university: '연세대학교' }, { name: '허○○', university: '고려대학교' }
+                { name: '강○○', university: '서울대학교', grade: 4 }, { name: '고○○', university: '연세대학교', grade: 2 },
+                { name: '곽○○', university: '고려대학교', grade: 3 }, { name: '권○○', university: '부산대학교', grade: 1 },
+                { name: '김○○', university: '경북대학교', grade: 4 }, { name: '김○○', university: '성균관대학교', grade: 2 },
+                { name: '김○○', university: '한양대학교', grade: 3 }, { name: '김○○', university: '서강대학교', grade: 1 },
+                { name: '김○○', university: '중앙대학교', grade: 4 }, { name: '남○○', university: '경희대학교', grade: 2 },
+                { name: '류○○', university: '이화여자대학교', grade: 3 }, { name: '문○○', university: '서울대학교', grade: 1 },
+                { name: '박○○', university: '카이스트', grade: 4 }, { name: '박○○', university: '포항공과대학교', grade: 2 },
+                { name: '박○○', university: '연세대학교', grade: 3 }, { name: '변○○', university: '고려대학교', grade: 1 },
+                { name: '서○○', university: '부산대학교', grade: 4 }, { name: '성○○', university: '동아대학교', grade: 2 },
+                { name: '손○○', university: '성균관대학교', grade: 3 }, { name: '송○○', university: '한양대학교', grade: 1 },
+                { name: '신○○', university: '서강대학교', grade: 4 }, { name: '안○○', university: '중앙대학교', grade: 2 },
+                { name: '오○○', university: '경희대학교', grade: 3 }, { name: '우○○', university: '서울대학교', grade: 1 },
+                { name: '유○○', university: '연세대학교', grade: 4 }, { name: '윤○○', university: '고려대학교', grade: 2 },
+                { name: '이○○', university: '카이스트', grade: 3 }, { name: '이○○', university: '포항공과대학교', grade: 1 },
+                { name: '이○○', university: '부산대학교', grade: 4 }, { name: '임○○', university: '경북대학교', grade: 2 },
+                { name: '장○○', university: '성균관대학교', grade: 3 }, { name: '전○○', university: '한양대학교', grade: 1 },
+                { name: '정○○', university: '서강대학교', grade: 4 }, { name: '조○○', university: '중앙대학교', grade: 2 },
+                { name: '주○○', university: '이화여자대학교', grade: 3 }, { name: '최○○', university: '서울대학교', grade: 1 },
+                { name: '하○○', university: '연세대학교', grade: 4 }, { name: '허○○', university: '고려대학교', grade: 2 }
             ]
         }
     ];
@@ -155,6 +156,25 @@ export default function ScholarListPage() {
                                 ▼
                             </div>
                         </div>
+
+                        {/* 학년 필터 */}
+                        <div className="relative min-w-[140px]">
+                            <GraduationCap className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                            <select
+                                value={selectedGrade}
+                                onChange={(e) => setSelectedGrade(e.target.value)}
+                                className="w-full pl-11 pr-8 py-3 border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all outline-none appearance-none bg-white cursor-pointer"
+                            >
+                                <option value="all">전체 학년</option>
+                                <option value="1">1학년</option>
+                                <option value="2">2학년</option>
+                                <option value="3">3학년</option>
+                                <option value="4">4학년</option>
+                            </select>
+                            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500 text-xs">
+                                ▼
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -162,14 +182,15 @@ export default function ScholarListPage() {
                 {scholarsByYear
                     .filter(item => selectedYear === 'all' || item.year.toString() === selectedYear)
                     .map((yearData) => {
-                        // 대학교 필터링
+                        // 대학교 및 학년 필터링
                         const filteredScholars = yearData.scholars.filter(scholar => {
-                            return selectedUniversity === 'all' || scholar.university === selectedUniversity;
+                            const universityMatch = selectedUniversity === 'all' || scholar.university === selectedUniversity;
+                            const gradeMatch = selectedGrade === 'all' || scholar.grade?.toString() === selectedGrade;
+                            return universityMatch && gradeMatch;
                         });
 
-                        // 결과가 없으면 숨김. 단, 검색/필터가 걸려있을 때만 숨기고 아닐 땐 보여줌(사실 이 로직은 위에서 map을 돌리기 때문에 
-                        // 연도 루프 안에서 개별 연도의 결과가 없을 때 null 처리하는 것이 맞음)
-                        if (filteredScholars.length === 0 && selectedUniversity !== 'all') return null;
+                        // 결과가 없으면 숨김
+                        if (filteredScholars.length === 0 && (selectedUniversity !== 'all' || selectedGrade !== 'all')) return null;
 
                         return (
                             <div key={yearData.year} className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
@@ -179,9 +200,9 @@ export default function ScholarListPage() {
                                         <h2 className="text-3xl font-bold">{yearData.year}년</h2>
                                         <div className="text-right">
                                             <div className="text-2xl font-bold">
-                                                {selectedUniversity !== 'all' ? `${filteredScholars.length}명 검색됨` : `${yearData.total}명`}
+                                                {(selectedUniversity !== 'all' || selectedGrade !== 'all') ? `${filteredScholars.length}명 검색됨` : `${yearData.total}명`}
                                             </div>
-                                            {selectedUniversity === 'all' && (
+                                            {(selectedUniversity === 'all' && selectedGrade === 'all') && (
                                                 <div className="text-blue-100 text-sm">
                                                     {(yearData.amount / 10000).toLocaleString()}만원
                                                 </div>
@@ -198,9 +219,12 @@ export default function ScholarListPage() {
                                                 key={`${yearData.year}-${index}`}
                                                 className="bg-gray-50 rounded-lg p-4 text-center hover:bg-blue-50 transition-colors group"
                                             >
-                                                <div className="text-lg font-semibold text-gray-800 mb-1">{scholar.name}</div>
-                                                <div className="text-xs text-blue-600 font-medium bg-blue-100 py-1 px-2 rounded-full inline-block">
+                                                <div className="text-lg font-semibold text-gray-800 mb-2">{scholar.name}</div>
+                                                <div className="text-xs text-blue-600 font-medium bg-blue-100 py-1 px-2 rounded-full inline-block mb-1">
                                                     {scholar.university}
+                                                </div>
+                                                <div className="text-xs text-green-600 font-medium bg-green-100 py-1 px-2 rounded-full inline-block">
+                                                    {scholar.grade}학년
                                                 </div>
                                             </div>
                                         ))}
@@ -214,12 +238,14 @@ export default function ScholarListPage() {
                 {(() => {
                     const visibleYears = scholarsByYear.filter(item => selectedYear === 'all' || item.year.toString() === selectedYear);
                     const hasResults = visibleYears.some(year =>
-                        year.scholars.some(s =>
-                            selectedUniversity === 'all' || s.university === selectedUniversity
-                        )
+                        year.scholars.some(s => {
+                            const universityMatch = selectedUniversity === 'all' || s.university === selectedUniversity;
+                            const gradeMatch = selectedGrade === 'all' || s.grade?.toString() === selectedGrade;
+                            return universityMatch && gradeMatch;
+                        })
                     );
 
-                    if (!hasResults && (selectedYear !== 'all' || selectedUniversity !== 'all')) {
+                    if (!hasResults && (selectedYear !== 'all' || selectedUniversity !== 'all' || selectedGrade !== 'all')) {
                         return (
                             <div className="text-center py-20 bg-gray-50 rounded-xl">
                                 <Filter className="w-12 h-12 text-gray-300 mx-auto mb-4" />
